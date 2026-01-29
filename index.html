@@ -169,33 +169,6 @@
             });
         }
 
-        function generateImageResponse(imagePrompt) {
-            const spinner = document.getElementById('spinner');
-            spinner.style.display = 'block';
-            fetch("https://backend.buildpicoapps.com/aero/run/image-generation-api?pk=v1-Z0FBQUFBQm4wR21nRDVpa1VOYkhGNnYySEZUSUJrOVp1TnZtWWp1ejV4T1BfVUkzUWVJM0hBWnA4R1ZNQmZqN1dsTkp0RlhwakRJdFJnN2hLSWdXWlpXZkx3X0V0cS1LRXc9PQ==", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ prompt: imagePrompt })
-            })
-            .then(response => response.json())
-            .then(data => {
-                spinner.style.display = 'none';
-                if (data.status === 'success') {
-                    displayMessage('ai', data.imageUrl);
-                } else {
-                    displayMessage('ai', "Sorry, there was an error generating the image.");
-                    console.error("Error:", data);
-                }
-            })
-            .catch(error => {
-                spinner.style.display = 'none';
-                displayMessage('ai', "Network error, please try again later.");
-                console.error("Network error:", error);
-            });
-        }
-
         function saveMessage(sender, message) {
             const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
             chatHistory.push({ sender, message });
